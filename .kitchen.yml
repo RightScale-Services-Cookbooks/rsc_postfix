@@ -1,0 +1,57 @@
+---
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: '11.6'
+
+platforms:
+- name: centos-6.5
+  run_list: ['recipe[yum-epel]']
+  driver_config:
+    box: opscode-centos-6.5
+    customize:
+      cpus: 1
+      memory: 512
+- name: rhel-6.5
+  run_list: ['recipe[yum-epel]', 'recipe[rhsm]']
+  attributes:
+    rhsm:
+      username: <%= ENV['RHSM_USERNAME'] %>
+      password: <%= ENV['RHSM_PASSWORD'] %>
+      compile_time: true
+      additional_repos: ['rhel-6-server-optional-rpms']
+  driver_config:
+    box: local-rhel-6.5
+    box_url: file://<%= File.expand_path('~') %>/opscode_rhel-6.5_chef-provisionerless.box
+    customize:
+      cpus: 1
+      memory: 512
+- name: ubuntu-12.04
+  run_list: ['recipe[apt]']
+  driver_config:
+    box: opscode-ubuntu-12.04
+    customize:
+      cpus: 1
+      memory: 512
+- name: ubuntu-14.04
+  run_list: ['recipe[apt]']
+  driver_config:
+    box: opscode-ubuntu-14.04
+    customize:
+      cpus: 1
+      memory: 512
+
+suites:
+- name: default
+  run_list:
+  - recipe[rsc_postfix::default]
+  attributes:
+    cloud:
+      provider: 'vagrant'
+      public_ips: ['100.64.1.1']
+      private_ips: ['10.0.2.15']
+    rsc_postfix:
+      relayhost: "myrelayhost"
+      smtp_sasl_user_name: "user"
+      smtp_sasl_passwd: "password"
+    rightscale:
+      instance_uuid: '1111111'

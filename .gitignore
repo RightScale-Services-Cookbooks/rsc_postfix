@@ -1,9 +1,6 @@
-.vagrant
-/cookbooks
-
-# Bundler
-bin/*
-.bundle/*
-
-.kitchen/
-.kitchen.local.yml
+/nbproject/
+/cache_dir/
+.kitchen/*
+.vagrant/
+Berksfile.lock
+Gemfile.lock
