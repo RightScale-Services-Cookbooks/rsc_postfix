@@ -55,3 +55,13 @@ suites:
       smtp_sasl_passwd: "password"
     rightscale:
       instance_uuid: '1111111'
+- name: local
+  run_list:
+  - recipe[rsc_postfix::setup_local_delivery]
+  attributes:
+    cloud:
+      provider: 'vagrant'
+      public_ips: ['100.64.1.1']
+      private_ips: ['10.0.2.15']
+    rightscale:
+      instance_uuid: '1111111'

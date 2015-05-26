@@ -7,11 +7,12 @@ Configures postfix for use on Rightscale.
 
 ### Recipe
 * rsc_postfix::default - setup postfix with a relay host
+* rsc_postfix::setup_local_delivery - setup postfix to send from localhost, no relay host
 
 ### Attributes
 * node["rsc_postfix"]["relayhost"] = the relay host host.  example: myrelayhost:2525
-* node["rsc_postfix"]["smtp_sasl_user_name"] = the username or access key
-* node["rsc_postfix"]["smtp_sasl_passwd"] = the password or secret
+* node["rsc_postfix"]["smtp_sasl_user_name"] = optional, the username or access key
+* node["rsc_postfix"]["smtp_sasl_passwd"] = optional, the password or secret
 
 
 ### Usage

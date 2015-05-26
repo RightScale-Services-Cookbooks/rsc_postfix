@@ -13,7 +13,9 @@ supports "ubuntu"
 depends "postfix", '3.6.2'
 depends "marker"
 
-recipe "rsc_postfix::default",
+recipe "rsc_postfix::default", "Configure postfix to use a relayhost"
+
+recipe "rsc_postfix::setup_local_delivery",
   "Configures postfix to deliver local mail by accepting SMTP connections" +
   " on localhost."
 
@@ -28,7 +30,7 @@ attribute "rsc_postfix/smtp_sasl_passwd",
   :display_name => "SMTP passwd",
   :description =>
   "the SMTP password or secret",
-  :required => "required",
+  :required => "optional",
   :recipes => ["rsc_postfix::default"]
 
 attribute "rsc_postfix/relayhost",
@@ -36,5 +38,5 @@ attribute "rsc_postfix/relayhost",
   :description =>
   "The SMTP Relay Host.  Default port is 25. Include the port number"+
   "if you want to use a different port.  For example:  myhost:2525",
-  :required => "required",
+  :required => "optional",
   :recipes => ["rsc_postfix::default"]
