@@ -12,6 +12,12 @@ describe 'rsc_postfix::default' do
       node.default["rsc_postfix"]["smtp_sasl_user_name"] = "username"
       node.default["rsc_postfix"]["smtp_sasl_passwd"] = "password"
     end.converge(described_recipe) }
+  
+  let(:chef_run_centos) { ChefSpec::Runner.new(platform: 'centos', version: '6.5') do |node|
+      node.default["rsc_postfix"]["relayhost"] = "localhost:2525"
+      node.default["rsc_postfix"]["smtp_sasl_user_name"] = "username"
+      node.default["rsc_postfix"]["smtp_sasl_passwd"] = "password"
+    end.converge(described_recipe) }
 
   it 'should have override attributes' do
     expect(chef_run.node["postfix"]["main"]["relayhost"]).to eq "localhost:2525"
@@ -25,8 +31,13 @@ describe 'rsc_postfix::default' do
     expect(chef_run.node['postfix']["main"]['smtp_sasl_auth_enable']).to eq "yes"
     expect(chef_run.node['postfix']['smtp_tls_security_level']).to eq "encrypt"
     expect(chef_run.node['postfix']['smtp_tls_note_starttls_offer']).to eq "yes"
+    expect(chef_run.node['postfix']['cafile']).to eq "/etc/ssl/certs/ca-certificates.crt"
   end
 
+  it 'should have override attributes for centos' do
+    expect(chef_run_centos.node['postfix']['cafile']).to eq "/etc/pki/tls/cert.pem"
+  end
+  
   
   it "restart service" do
     expect(chef_run).to restart_service("postfix")

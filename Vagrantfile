@@ -69,7 +69,7 @@ Vagrant.configure("2") do |config|
   # config.berkshelf.only = []
 
   config.omnibus.chef_version = '11.6.0'
-
+  config.ohai.enable = true
   # An array of symbols representing groups of cookbook described in the Vagrantfile
   # to skip installing and copying to Vagrant's shelf.
   # config.berkshelf.except = []
@@ -89,10 +89,10 @@ Vagrant.configure("2") do |config|
         instance_uuid:'abcdef1234',
         servers: {sketchy: {hostname: 'fpp'}}
       },
-      postfix: {
-        smtp_sasl_user_name: 'hellodotcom',
-        smtp_sasl_passwd: 'addrealpasswordhere',
-        relayhost: 'smtp.sendgrid.net'
+      rsc_postfix: {
+        smtp_sasl_user_name: 'cwilhelm',
+        smtp_sasl_passwd: '7jPG1cqI5',
+        relayhost: '[smtp.sendgrid.net]:587'
       }
     }
 

@@ -23,7 +23,7 @@ attribute "rsc_postfix/smtp_sasl_user_name",
   :display_name => "SMTP Username",
   :description =>
   "The SMTP username or access key",
-  :required => "required",
+  :required => "optional",
   :recipes => ["rsc_postfix::default"]
 
 attribute "rsc_postfix/smtp_sasl_passwd",
