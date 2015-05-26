@@ -90,9 +90,9 @@ Vagrant.configure("2") do |config|
         servers: {sketchy: {hostname: 'fpp'}}
       },
       rsc_postfix: {
-        smtp_sasl_user_name: 'cwilhelm',
-        smtp_sasl_passwd: '7jPG1cqI5',
-        relayhost: '[smtp.sendgrid.net]:587'
+        smtp_sasl_user_name: 'username',
+        smtp_sasl_passwd: 'password',
+        relayhost: 'somerelay'
       }
     }
 
